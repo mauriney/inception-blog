@@ -3,8 +3,8 @@ const app = express()
 const bodyParser = require("body-parser")
 const connection = require("./database/database")
 
-const CategoriesController = require("./categories/CategoriesController")
-const ArticlesController = require("./articles/ArticlesController")
+const categoriesController = require("./categories/CategoriesController")
+const articlesController = require("./articles/ArticlesController")
 
 const Article = require("./articles/Article")
 const Category = require("./categories/Category")
@@ -30,9 +30,9 @@ connection
     })
 
 //Informando que vai utilizar a rota de CategoriesController
-app.use("/", CategoriesController)
+app.use("/",categoriesController)
 //Informando que vai utilizar a rota de ArticlesController
-app.use("/", ArticlesController)
+app.use("/",articlesController)
 
 app.get("/", (req, res) => {
     res.render("index")

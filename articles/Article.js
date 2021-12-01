@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize")
-const Category = require("../categories/Category")
+const Category = require("../categories/Category")//importado para se comunicar com a tabela de artigos
 const connection = require("../database/database")
 
 const Article = connection.define('articles', {

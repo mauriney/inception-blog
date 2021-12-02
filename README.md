@@ -12,6 +12,7 @@ Blog developed with node.js inspired by wordpress
 * [EJS](https://ejs.co/);
 * [MySQL](https://www.mysql.com/);
 * [Sequelize](https://sequelize.org/);
+* [Slugify](https://www.npmjs.com/package//slugify);
 
 ## :rocket: Rodando o projeto
 

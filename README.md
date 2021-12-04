@@ -13,6 +13,7 @@ Blog developed with node.js inspired by wordpress
 * [MySQL](https://www.mysql.com/);
 * [Sequelize](https://sequelize.org/);
 * [Slugify](https://www.npmjs.com/package//slugify);
+* [TinyMCE](https://www.tiny.cloud/);
 
 ## :rocket: Rodando o projeto
 

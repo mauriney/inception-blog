@@ -34,10 +34,61 @@ app.use("/",categoriesController)
 //Informando que vai utilizar a rota de ArticlesController
 app.use("/",articlesController)
 
+//Renderizando a homepage
 app.get("/", (req, res) => {
-    res.render("index")
+    Article.findAll({
+        order:[
+            ['id', 'DESC']
+        ]
+    }).then(articles => { //Pesquisa todos os artigos
+        Category.findAll().then(categories => {
+            res.render("index", {articles: articles, categories: categories}) //Renderiza os artigos e categoria na index
+        })
+    })
 })
 
+//Busca por slug na index de articles
+app.get("/:slug", (req, res) => {
+    let slug = req.params.slug;
+    Article.findOne({
+        where: {
+            slug: slug
+        }
+    }).then(article => {
+        if(article != undefined){
+            Category.findAll().then(categories => {
+                res.render("article", {article: article, categories: categories}) //Renderiza os artigos e categoria na article
+            })
+        } else{
+            res.redirect("/")
+        }
+    }).catch( err => {
+        res.redirect("/")
+    })
+})
+
+//Rota para pesquisar categoria usando o slug - na navbarhome
+app.get("/category/:slug", (req, res) => {
+    let slug = req.params.slug
+    Category.findOne({
+        where: {
+            slug: slug
+        },
+        include: [{model: Article}] //quando buscar categoria inclui tudo de article
+    }).then( category => {
+        if(category != undefined){
+
+            Category.findAll().then(categories => {
+                res.render("index",{articles: category.articles,categories: categories})
+            })
+
+        }else{
+            res.redirect("/")
+        }
+    }).catch( err => {
+        res.redirect("/")
+    })
+})
 
 
 app.listen(8080, () => {

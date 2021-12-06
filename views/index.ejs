@@ -1,6 +1,27 @@
 <%- include('partials/header.ejs'); %>
-<%- include('partials/navbar.ejs'); %>
+<%- include('partials/homenavbar.ejs'); %>
 <body>
+    <div class="container">
+        <br>
+        <div class="jumbotron">
+            <h1 class="display-4">Bem-vindo!</h1>
+            <p class="lead">Este é um blog que foi desenvolvido a partir da metodologia de estudos baseado em node.js</p>
+            <hr class="my-4">
+            <p>Uma descrição detalhada</p>
+            <a class="btn btn-primary btn-lg" href="#" role="button">Leia mais</a>
+        </div>
 
+        <% articles.forEach(article => { %>
+            <div class="card">
+                <div class="card-header">
+                    <h2><%= article.title %></h2>
+                </div>
+                <div class="card-body">
+                    <a href="<%= article.slug %>" class="btn btn-success">Ler artigo</a> <!-- Recebe dinamicamente o slug -->
+                </div>
+            </div>
+            <br>
+        <% }) %>
+    </div>
 </body>
 <%- include('partials/footer.ejs'); %>

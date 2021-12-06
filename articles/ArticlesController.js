@@ -4,9 +4,13 @@ const Category = require("../categories/Category")
 const Article = require("./Article")
 const slugify = require("slugify")
 
+//Rota de lista de artigos
 router.get("/admin/articles", (req, res) => {
-    // res.send("Rota de Artigos")
-    res.render("admin/articles/index")
+    Article.findAll({
+        include: [{model: Category}]//incluindo na busca o model category que é o mesmo que está na linha 3
+    }).then(articles => {
+        res.render("admin/articles/index", {articles: articles})
+    })
 })
 
 //Rota de novo artigo
@@ -30,6 +34,25 @@ router.post("/articles/save", (req, res) => {
     }).then(() => {
         res.redirect("/admin/articles")
     })
+})
+
+router.post("/articles/delete", (req, res) => {
+    let id = req.body.id; //recebe do body o id
+    if(id != undefined){
+        if(!isNaN(id)){
+            Article.destroy({
+                where: {
+                    id: id // Delete tudo que tiver o id = ao id passado via json
+                }
+            }).then(() => {
+                res.redirect("/admin/articles")
+            })
+        } else{
+            res.redirect("/admin/articles")
+        }
+    } else{
+        res.redirect("/admin/articles")
+    }
 })
 
 module.exports = router;
